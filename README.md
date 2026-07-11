@@ -1,8 +1,8 @@
 # melancho.li
 
-The source for my small corner of the internet: a pink, sakura-covered page with the places you can find me.
+The source for my small corner of the internet: a black-and-white personal homepage with my links and space reserved for Monogatari artwork.
 
-There is not much machinery here on purpose. It is one static Astro page, a little scroll animation, and no tracking or giant frontend runtime.
+It borrows the compact columns, one-pixel borders, and small labeled panels of old anime fan sites without trying to reproduce an old browser. There is not much machinery here on purpose: one static Astro page, no tracking, and one small clipboard script.
 
 ## Running it
 
@@ -30,9 +30,9 @@ npm run preview
 ## Small details
 
 - Email, Discord, and Matrix are marked as the most reliable ways to reach me.
-- The Discord card copies my username because Discord does not provide a useful public profile link for a handle.
-- The intro animation respects reduced-motion settings.
-- Fonts are included in the project, so the page does not call Google Fonts at runtime.
+- The Discord row copies my username because Discord does not provide a useful public profile link for a handle.
+- The page uses system fonts and has no animation.
+- Artwork slots are plain `IMAGE HERE` placeholders so the final images can be chosen later.
 
 The site is intended for [melancho.li](https://melancho.li).
 
