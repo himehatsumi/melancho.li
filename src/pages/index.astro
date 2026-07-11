@@ -215,7 +215,7 @@ const icons: Record<string, string> = {
           <h2 class="panel-title">SITE LOG</h2>
           <div class="log-entry">
             <time datetime="2026-07-11">11.07.2026</time>
-            <p>Made the desktop frame wider, taller, and moved it lower on the page.</p>
+            <p>Enlarged the desktop frame, type, and artwork panels for a roomier layout.</p>
           </div>
         </section>
       </main>
@@ -481,11 +481,11 @@ const icons: Record<string, string> = {
   }
 
   .quote-rail-left {
-    left: calc(50% - 575px);
+    left: calc(50% - 645px);
   }
 
   .quote-rail-right {
-    right: calc(50% - 575px);
+    right: calc(50% - 645px);
   }
 
   .quote-stream {
@@ -507,7 +507,7 @@ const icons: Record<string, string> = {
   .site {
     position: relative;
     z-index: 1;
-    width: min(calc(100% - 2rem), 1040px);
+    width: min(calc(100% - 2rem), 1180px);
     margin: 1.5rem auto;
     border: 1px solid var(--black);
     background: var(--white);
@@ -599,7 +599,7 @@ const icons: Record<string, string> = {
   .page-grid {
     display: grid;
     grid-template-areas: 'left content right';
-    grid-template-columns: 185px minmax(0, 1fr) 185px;
+    grid-template-columns: 215px minmax(0, 1fr) 215px;
   }
 
   .left-sidebar,
@@ -981,9 +981,10 @@ const icons: Record<string, string> = {
   @media (min-width: 1000px) {
     .site {
       display: flex;
-      min-height: 780px;
+      min-height: calc(100vh - 5rem);
       flex-direction: column;
-      margin: clamp(3rem, 8vh, 4.5rem) auto 2rem;
+      margin: clamp(2.5rem, 4.5vh, 3.5rem) auto 0.5rem;
+      font-size: 13px;
     }
 
     .page-grid {
@@ -993,10 +994,11 @@ const icons: Record<string, string> = {
     .top-strip {
       min-height: 1.35rem;
       padding: 0.15rem 0.55rem;
+      font-size: 11px;
     }
 
     .banner-image {
-      height: clamp(8rem, 17vh, 9.5rem);
+      height: clamp(9rem, 18vh, 10rem);
       object-position: center 28%;
     }
 
@@ -1010,7 +1012,7 @@ const icons: Record<string, string> = {
 
     .banner-copy p,
     .banner-copy > span {
-      font-size: 9px;
+      font-size: 10px;
     }
 
     .banner-copy > span {
@@ -1018,11 +1020,12 @@ const icons: Record<string, string> = {
     }
 
     h1 {
-      font-size: 2.35rem;
+      font-size: 2.55rem;
     }
 
     .main-nav a {
-      padding: 0.28rem 0.75rem;
+      padding: 0.35rem 0.75rem;
+      font-size: 13px;
     }
 
     .left-sidebar,
@@ -1032,12 +1035,12 @@ const icons: Record<string, string> = {
     }
 
     .panel {
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
     }
 
     .panel-title {
-      padding: 0.2rem 0.38rem;
-      font-size: 9px;
+      padding: 0.24rem 0.4rem;
+      font-size: 10px;
     }
 
     .panel-body,
@@ -1050,17 +1053,21 @@ const icons: Record<string, string> = {
     }
 
     .small-panel > p {
-      font: 10px/1.4 var(--sans);
+      font: 11px/1.45 var(--sans);
     }
 
     .portrait-crop {
-      height: 7rem;
+      height: 9.5rem;
       aspect-ratio: auto;
     }
 
     .detail-crop {
-      height: 5.5rem;
+      height: 8.5rem;
       aspect-ratio: auto;
+    }
+
+    .profile-list {
+      font-size: 11px;
     }
 
     .profile-list dt,
@@ -1069,11 +1076,12 @@ const icons: Record<string, string> = {
     }
 
     .side-links a {
-      padding: 0.18rem 0.4rem;
+      padding: 0.22rem 0.4rem;
+      font-size: 11px;
     }
 
     .contact-row {
-      min-height: 2.6rem;
+      min-height: 3rem;
       grid-template-columns: 0.7rem 1.35rem minmax(0, 1fr) 4.6rem;
       gap: 0.35rem;
       padding: 0.28rem 0.5rem;
@@ -1095,12 +1103,16 @@ const icons: Record<string, string> = {
     }
 
     .contact-info strong {
-      font-size: 10px;
+      font-size: 11px;
     }
 
     .contact-info small {
-      font-size: 9px;
+      font-size: 10px;
       line-height: 1.25;
+    }
+
+    .contact-action {
+      font-size: 10px;
     }
 
     .log-entry time,
@@ -1114,6 +1126,7 @@ const icons: Record<string, string> = {
 
     .reliable-list span {
       margin-top: 0.05rem;
+      font-size: 9px;
       line-height: 1.25;
     }
 
@@ -1123,15 +1136,22 @@ const icons: Record<string, string> = {
     }
 
     .anilist-body span {
+      font-size: 10px;
       line-height: 1.3;
+    }
+
+    .anilist-body strong {
+      font-size: 12px;
     }
 
     .anilist-body u {
       margin-top: 0;
+      font-size: 10px;
     }
 
     .caption {
       padding: 0.18rem;
+      font-size: 10px;
     }
 
     .clock-body {
@@ -1140,23 +1160,28 @@ const icons: Record<string, string> = {
     }
 
     .clock-body time {
-      font-size: 1.15rem;
+      font-size: 1.3rem;
+    }
+
+    .clock-body span {
+      font-size: 9px;
     }
 
     .footer {
       column-gap: 0.5rem;
       row-gap: 0.1rem;
       padding: 0.3rem 0.55rem;
+      font-size: 10px;
     }
 
     .image-rights {
       margin-top: 0.1rem;
       padding-top: 0.2rem;
-      font-size: 8px;
+      font-size: 9px;
     }
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1300px) {
     .quote-rail {
       display: none;
     }
