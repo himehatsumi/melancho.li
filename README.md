@@ -2,7 +2,7 @@
 
 The source for my small corner of the internet: a black-and-white personal homepage with my links and space reserved for Monogatari artwork.
 
-It borrows the compact columns, one-pixel borders, and small labeled panels of old anime fan sites without trying to reproduce an old browser. There is not much machinery here on purpose: one static Astro page, no tracking, and one small clipboard script.
+It borrows the compact columns, one-pixel borders, and small labeled panels of old anime fan sites without trying to reproduce an old browser. There is not much machinery here on purpose: one static Astro page, no tracking, and a little client-side code for the clipboard, clock, AniList box, and local counter.
 
 ## Running it
 
@@ -32,8 +32,10 @@ though I don't see why you would do any of this. just visit it at https://melanc
 
 - Email, Discord, and Matrix are marked as the most reliable ways to reach me.
 - The Discord row copies my username because Discord does not provide a useful public profile link for a handle.
-- The page uses system fonts and has no animation.
+- The page uses system fonts. Only the optional side quotes move, and they stop for reduced-motion settings.
 - Artwork slots are plain `IMAGE HERE` placeholders so the final images can be chosen later.
+- The unofficial AniList box reads public data from the AniList GraphQL API and keeps a verified static fallback.
+- The hit counter is local to each browser; it does not send analytics anywhere.
 
 The site is intended for [melancho.li](https://melancho.li).
 

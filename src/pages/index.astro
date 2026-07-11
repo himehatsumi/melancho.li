@@ -68,11 +68,17 @@ const icons: Record<string, string> = {
 <Layout title="melancho.li — himehatsumi" description="Himehatsumi's personal website and contact links.">
   <a class="skip-link" href="#contact">skip to contact</a>
 
+  <div class="quote-rail quote-rail-left" aria-hidden="true">
+    <div class="quote-stream">全ての〈物語〉はここから始まる　／　傷物語　／　全ての〈物語〉のはじまりを、ふたたび</div>
+  </div>
+  <div class="quote-rail quote-rail-right" aria-hidden="true">
+    <div class="quote-stream">全ての〈物語〉のはじまりを、ふたたび　／　傷物語　／　全ての〈物語〉はここから始まる</div>
+  </div>
+
   <div class="site" id="home">
     <header class="site-header">
       <div class="top-strip">
         <span>melancho.li</span>
-        <span>himehatsumi online</span>
       </div>
 
       <div class="banner">
@@ -121,6 +127,16 @@ const icons: Record<string, string> = {
         <section class="panel small-panel">
           <h2 class="panel-title">INTERESTS.TXT</h2>
           <p>monogatari<br />old web pages<br />quiet internet corners</p>
+        </section>
+
+        <section class="panel anilist-panel" data-anilist-widget>
+          <h2 class="panel-title">ANILIST // UNOFFICIAL</h2>
+          <a class="anilist-body" href="https://anilist.co/user/7043262" target="_blank" rel="noreferrer">
+            <strong>@himehatsumi</strong>
+            <span data-anilist-current aria-live="polite">watching: Chi. Chikyuu no Undou ni Tsuite — ep. 8</span>
+            <span data-anilist-stats>181 anime / 962h watched</span>
+            <u>view profile →</u>
+          </a>
         </section>
       </aside>
 
@@ -214,11 +230,22 @@ const icons: Record<string, string> = {
           <p>handmade with html, css, and one very small script.</p>
           <p class="best-viewed">best viewed in any browser</p>
         </section>
+
+        <section class="panel clock-panel">
+          <h2 class="panel-title">CLOCK.EXE</h2>
+          <div class="clock-body">
+            <time data-clock-time datetime="">--:--:--</time>
+            <span data-clock-date>loading local time</span>
+          </div>
+        </section>
       </aside>
     </div>
 
     <footer class="footer">
       <span>© {new Date().getFullYear()} himehatsumi</span>
+      <span class="hit-counter" title="Visits counted in this browser">
+        hits: <output data-hit-counter>000001</output>
+      </span>
       <span>last updated: 11 july 2026</span>
     </footer>
   </div>
@@ -254,6 +281,94 @@ const icons: Record<string, string> = {
         label.textContent = text;
       }
     });
+
+    const anilistWidget = document.querySelector<HTMLElement>('[data-anilist-widget]');
+    const anilistCurrent = anilistWidget?.querySelector<HTMLElement>('[data-anilist-current]');
+    const anilistStats = anilistWidget?.querySelector<HTMLElement>('[data-anilist-stats]');
+    const anilistLink = anilistWidget?.querySelector<HTMLAnchorElement>('.anilist-body');
+
+    const anilistQuery = `
+      query ($name: String) {
+        User(name: $name) {
+          siteUrl
+          statistics { anime { count minutesWatched } }
+        }
+        Page(page: 1, perPage: 1) {
+          mediaList(userName: $name, type: ANIME, status: CURRENT, sort: UPDATED_TIME_DESC) {
+            progress
+            media { title { userPreferred } }
+          }
+        }
+      }
+    `;
+
+    if (anilistWidget && anilistCurrent && anilistStats) {
+      fetch('https://graphql.anilist.co', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ query: anilistQuery, variables: { name: 'himehatsumi' } }),
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error('AniList request failed');
+          return response.json();
+        })
+        .then((payload) => {
+          const user = payload.data?.User;
+          const current = payload.data?.Page?.mediaList?.[0];
+          if (!user) return;
+
+          if (current) {
+            anilistCurrent.textContent = `watching: ${current.media.title.userPreferred} — ep. ${current.progress}`;
+          } else {
+            anilistCurrent.textContent = 'nothing marked as watching';
+          }
+
+          const animeCount = user.statistics?.anime?.count ?? 0;
+          const hoursWatched = Math.round((user.statistics?.anime?.minutesWatched ?? 0) / 60);
+          anilistStats.textContent = `${animeCount} anime / ${hoursWatched}h watched`;
+          if (anilistLink && user.siteUrl) anilistLink.href = user.siteUrl;
+        })
+        .catch(() => {
+          // The verified static snapshot remains visible when AniList is unavailable.
+        });
+    }
+
+    const clockTime = document.querySelector<HTMLTimeElement>('[data-clock-time]');
+    const clockDate = document.querySelector<HTMLElement>('[data-clock-date]');
+
+    const updateClock = () => {
+      if (!clockTime || !clockDate) return;
+      const now = new Date();
+      clockTime.dateTime = now.toISOString();
+      clockTime.textContent = now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      });
+      clockDate.textContent = now.toLocaleDateString([], {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      });
+    };
+
+    updateClock();
+    window.setInterval(updateClock, 1000);
+
+    const hitCounter = document.querySelector<HTMLOutputElement>('[data-hit-counter]');
+    if (hitCounter) {
+      try {
+        const counterKey = 'melancholi-local-hits';
+        const nextCount = Number.parseInt(localStorage.getItem(counterKey) ?? '0', 10) + 1;
+        localStorage.setItem(counterKey, String(nextCount));
+        hitCounter.value = String(nextCount).padStart(6, '0');
+        hitCounter.textContent = hitCounter.value;
+      } catch {
+        hitCounter.value = '000001';
+      }
+    }
   </script>
 </Layout>
 
@@ -273,7 +388,47 @@ const icons: Record<string, string> = {
     transform: translateY(0);
   }
 
+  .quote-rail {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 2rem;
+    overflow: hidden;
+    color: var(--gray-700);
+    font: 10px/1.8 var(--serif);
+    letter-spacing: 0.16em;
+    pointer-events: none;
+    writing-mode: vertical-rl;
+  }
+
+  .quote-rail-left {
+    left: calc(50% - 545px);
+  }
+
+  .quote-rail-right {
+    right: calc(50% - 545px);
+  }
+
+  .quote-stream {
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    animation: quote-waterfall 44s linear infinite;
+  }
+
+  .quote-rail-right .quote-stream {
+    animation-delay: -22s;
+  }
+
+  @keyframes quote-waterfall {
+    from { transform: translateY(-110%); }
+    to { transform: translateY(100vh); }
+  }
+
   .site {
+    position: relative;
+    z-index: 1;
     width: min(calc(100% - 2rem), 980px);
     margin: 1.5rem auto;
     border: 1px solid var(--black);
@@ -285,7 +440,7 @@ const icons: Record<string, string> = {
     display: flex;
     min-height: 1.7rem;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 1rem;
     padding: 0.25rem 0.65rem;
     color: var(--white);
@@ -656,7 +811,7 @@ const icons: Record<string, string> = {
   .reliable-list li {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.65rem 0.75rem;
     counter-increment: contacts;
   }
 
@@ -670,9 +825,59 @@ const icons: Record<string, string> = {
   }
 
   .reliable-list span {
-    margin-left: 1.55rem;
+    margin: 0.15rem 0 0 1.65rem;
     font: 9px/1.4 var(--mono);
     overflow-wrap: anywhere;
+  }
+
+  .anilist-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.32rem;
+    padding: 0.65rem;
+    border: 1px solid var(--black);
+    border-top: 0;
+    text-decoration: none;
+  }
+
+  .anilist-body:hover {
+    color: var(--white);
+    background: var(--black);
+  }
+
+  .anilist-body strong {
+    font: bold 11px/1.3 var(--mono);
+  }
+
+  .anilist-body span {
+    font: 9px/1.45 var(--mono);
+    overflow-wrap: anywhere;
+  }
+
+  .anilist-body u {
+    align-self: flex-end;
+    margin-top: 0.15rem;
+    font: 9px/1.3 var(--mono);
+  }
+
+  .clock-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.8rem 0.4rem;
+    border: 1px solid var(--black);
+    border-top: 0;
+  }
+
+  .clock-body time {
+    font: bold 1.55rem/1 var(--mono);
+    letter-spacing: 0.04em;
+  }
+
+  .clock-body span {
+    font: 8px/1.3 var(--mono);
+    text-transform: uppercase;
   }
 
   .best-viewed {
@@ -689,6 +894,26 @@ const icons: Record<string, string> = {
     color: var(--white);
     background: var(--black);
     font: 9px/1.4 var(--mono);
+  }
+
+  .hit-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .hit-counter output {
+    padding: 0.05rem 0.28rem;
+    color: var(--black);
+    background: var(--white);
+    font-weight: bold;
+    letter-spacing: 0.12em;
+  }
+
+  @media (max-width: 1100px) {
+    .quote-rail {
+      display: none;
+    }
   }
 
   @media (max-width: 800px) {
@@ -775,6 +1000,14 @@ const icons: Record<string, string> = {
     .footer {
       flex-direction: column;
       gap: 0.15rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .quote-stream {
+      top: 1rem;
+      animation: none;
+      transform: none;
     }
   }
 </style>
