@@ -1,0 +1,83 @@
+:root {
+  color-scheme: light;
+  --ink: #543b49;
+  --muted: #7d6572;
+  --paper: #fff4f7;
+  --cream: #fffafb;
+  --blush: #f9dce6;
+  --rose: #f5cedc;
+  --petal: #efb8cb;
+  --accent: #a95878;
+  --line: rgba(81, 64, 77, 0.14);
+  --serif: 'Fraunces Variable', Georgia, serif;
+  --sans: 'DM Sans Variable', 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid #8e5575;
+  outline-offset: 4px;
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--petal);
+}
+
+.shell {
+  width: min(100% - 3rem, 1120px);
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .shell {
+    width: min(100% - 1.5rem, 1120px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
