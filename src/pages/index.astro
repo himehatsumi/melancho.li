@@ -215,7 +215,7 @@ const icons: Record<string, string> = {
           <h2 class="panel-title">SITE LOG</h2>
           <div class="log-entry">
             <time datetime="2026-07-11">11.07.2026</time>
-            <p>Added a shared visitor count, new interests, and a more compact desktop layout.</p>
+            <p>Added a shared hit counter and refreshed the desktop layout: larger, lower, and more centered.</p>
           </div>
         </section>
       </main>
@@ -246,13 +246,13 @@ const icons: Record<string, string> = {
               sizes="(max-width: 560px) calc(100vw - 24px), (max-width: 800px) 50vw, 185px"
             />
           </div>
-          <p class="caption">staplers / donuts / stairs</p>
+          <p class="caption" lang="ja">「失礼。噛みました。」</p>
         </section>
 
         <section class="panel small-panel">
           <h2 class="panel-title">ABOUT THIS PAGE</h2>
-          <p>handmade with html, css, and one very small script.</p>
-          <p class="best-viewed">best viewed in any browser</p>
+          <p>built with Astro, HTML, CSS, and a little JavaScript.</p>
+          <p class="best-viewed">best viewed on desktop</p>
         </section>
 
         <section class="panel clock-panel">
@@ -481,11 +481,11 @@ const icons: Record<string, string> = {
   }
 
   .quote-rail-left {
-    left: calc(50% - 545px);
+    left: calc(50% - 575px);
   }
 
   .quote-rail-right {
-    right: calc(50% - 545px);
+    right: calc(50% - 575px);
   }
 
   .quote-stream {
@@ -507,7 +507,7 @@ const icons: Record<string, string> = {
   .site {
     position: relative;
     z-index: 1;
-    width: min(calc(100% - 2rem), 980px);
+    width: min(calc(100% - 2rem), 1040px);
     margin: 1.5rem auto;
     border: 1px solid var(--black);
     background: var(--white);
@@ -980,7 +980,7 @@ const icons: Record<string, string> = {
 
   @media (min-width: 1000px) {
     .site {
-      margin: 0.5rem auto;
+      margin: 1.25rem auto 0.5rem;
     }
 
     .top-strip {
