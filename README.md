@@ -26,6 +26,7 @@ That creates the finished static site in `dist/`. To check that build locally:
 ```sh
 npm run preview
 ```
+though I don't see why you would do any of this. just visit it at https://melancho.li
 
 ## Small details
 
