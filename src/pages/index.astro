@@ -215,7 +215,7 @@ const icons: Record<string, string> = {
           <h2 class="panel-title">SITE LOG</h2>
           <div class="log-entry">
             <time datetime="2026-07-11">11.07.2026</time>
-            <p>Added a shared hit counter and refreshed the desktop layout: larger, lower, and more centered.</p>
+            <p>Made the desktop frame wider, taller, and moved it lower on the page.</p>
           </div>
         </section>
       </main>
@@ -980,7 +980,14 @@ const icons: Record<string, string> = {
 
   @media (min-width: 1000px) {
     .site {
-      margin: 1.25rem auto 0.5rem;
+      display: flex;
+      min-height: 780px;
+      flex-direction: column;
+      margin: clamp(3rem, 8vh, 4.5rem) auto 2rem;
+    }
+
+    .page-grid {
+      flex: 1;
     }
 
     .top-strip {
