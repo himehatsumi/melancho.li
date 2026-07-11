@@ -2,7 +2,7 @@
 
 The source for my small corner of the internet: a black-and-white personal homepage with my links and Monogatari artwork.
 
-It borrows the compact columns, one-pixel borders, and small labeled panels of old anime fan sites without trying to reproduce an old browser. There is not much machinery here on purpose: one static Astro page, no tracking, and a little client-side code for the clipboard, clock, AniList box, and local counter.
+It borrows the compact columns, one-pixel borders, and small labeled panels of old anime fan sites without trying to reproduce an old browser. There is not much machinery here on purpose: one static Astro page with a single Firestore document for the shared hit counter.
 
 ## Running it
 
@@ -28,6 +28,19 @@ npm run preview
 ```
 though I don't see why you would do any of this. just visit it at https://melancho.li
 
+## Firebase
+
+The Firebase Hosting and Firestore files are already included. Do not run `firebase init` over them.
+
+```sh
+npm install -g firebase-tools
+firebase login
+firebase use --add
+firebase deploy
+```
+
+The Hosting predeploy hook runs the Astro build automatically. Create the default Firestore database once before the first deployment.
+
 ## Small details
 
 - Email, Discord, and Matrix are marked as the most reliable ways to reach me.
@@ -35,7 +48,8 @@ though I don't see why you would do any of this. just visit it at https://melanc
 - The page uses system fonts. Only the optional side quotes move, and they stop for reduced-motion settings.
 - The artwork is served through Astro's image pipeline as optimized responsive WebP files.
 - The unofficial AniList box reads public data from the AniList GraphQL API and keeps a verified static fallback.
-- The hit counter is local to each browser; it does not send analytics anywhere.
+- The hit counter is shared by everyone and increments once per browser session. Firestore stores only one total number, not visitor analytics.
+- `firebase deploy` builds the Astro site, deploys it to Firebase Hosting, and publishes the counter rules.
 
 The site is intended for [melancho.li](https://melancho.li).
 

@@ -10,5 +10,10 @@ preview.log
 .env.*
 !.env.example
 
+.firebaserc
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
 .DS_Store
 Thumbs.db
