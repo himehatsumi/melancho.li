@@ -1,5 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import avatarLeft from '../assets/images/avatar-left.jpg';
+import avatarRight from '../assets/images/avatar-right.jpg';
+import bannerImage from '../assets/images/banner.jpg';
 import '../styles/global.css';
 
 const socials = [
@@ -82,10 +86,16 @@ const icons: Record<string, string> = {
       </div>
 
       <div class="banner">
-        <div class="image-placeholder banner-placeholder" role="img" aria-label="Placeholder for a Monogatari banner image">
-          <span>IMAGE HERE</span>
-          <small>MONOGATARI BANNER // 1600 × 640</small>
-        </div>
+        <Image
+          src={bannerImage}
+          class="banner-image"
+          alt="Monochrome Monogatari character surrounded by feathers"
+          format="webp"
+          quality={85}
+          widths={[480, 720, 890]}
+          sizes="(max-width: 560px) 100vw, 980px"
+          priority
+        />
         <div class="banner-copy">
           <p lang="ja">私の小さな物語</p>
           <h1>melancho.li</h1>
@@ -104,9 +114,16 @@ const icons: Record<string, string> = {
       <aside class="left-sidebar" aria-label="Profile and site information">
         <section class="panel">
           <h2 class="panel-title">PROFILE.TXT</h2>
-          <div class="image-crop portrait-crop image-placeholder" role="img" aria-label="Placeholder for a character portrait">
-            <span>IMAGE HERE</span>
-            <small>CHARACTER PORTRAIT</small>
+          <div class="image-crop portrait-crop">
+            <Image
+              src={avatarLeft}
+              class="panel-image"
+              alt="Black-and-white Monogatari character portrait"
+              format="webp"
+              quality={85}
+              widths={[185, 370, 736]}
+              sizes="(max-width: 560px) calc(100vw - 24px), (max-width: 800px) 50vw, 185px"
+            />
           </div>
           <dl class="profile-list">
             <dt>name</dt><dd>himehatsumi</dd>
@@ -218,9 +235,16 @@ const icons: Record<string, string> = {
 
         <section class="panel">
           <h2 class="panel-title">MONOGATARI</h2>
-          <div class="image-crop detail-crop image-placeholder" role="img" aria-label="Placeholder for a Monogatari detail image">
-            <span>IMAGE HERE</span>
-            <small>MANGA DETAIL</small>
+          <div class="image-crop detail-crop">
+            <Image
+              src={avatarRight}
+              class="panel-image"
+              alt="Black-and-white Monogatari character portrait"
+              format="webp"
+              quality={85}
+              widths={[185, 370, 740]}
+              sizes="(max-width: 560px) calc(100vw - 24px), (max-width: 800px) 50vw, 185px"
+            />
           </div>
           <p class="caption">staplers / donuts / stairs</p>
         </section>
@@ -247,6 +271,7 @@ const icons: Record<string, string> = {
         hits: <output data-hit-counter>000001</output>
       </span>
       <span>last updated: 11 july 2026</span>
+      <p class="image-rights">Images from Monogatari belong to NISIOISIN and their respective copyright holders. No ownership claimed.</p>
     </footer>
   </div>
 
@@ -456,10 +481,12 @@ const icons: Record<string, string> = {
     background: var(--white);
   }
 
-  .banner-placeholder {
+  .banner-image {
+    display: block;
     width: 100%;
-    min-height: 23.5rem;
-    padding-left: 44%;
+    height: 23.5rem;
+    object-fit: cover;
+    object-position: center 20%;
   }
 
   .banner-copy {
@@ -573,40 +600,11 @@ const icons: Record<string, string> = {
     background: var(--gray-100);
   }
 
-  .image-placeholder {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-    color: var(--gray-700);
-    background:
-      linear-gradient(45deg, transparent 49.7%, var(--gray-300) 49.8%, var(--gray-300) 50.2%, transparent 50.3%),
-      linear-gradient(-45deg, transparent 49.7%, var(--gray-300) 49.8%, var(--gray-300) 50.2%, transparent 50.3%),
-      repeating-linear-gradient(0deg, var(--white) 0 3px, var(--gray-100) 3px 4px);
-    font: bold 12px/1.2 var(--mono);
-    text-align: center;
-  }
-
-  .image-placeholder::after {
-    content: '';
-    position: absolute;
-    inset: 0.45rem;
-    border: 1px dotted var(--gray-500);
-    pointer-events: none;
-  }
-
-  .image-placeholder span,
-  .image-placeholder small {
-    position: relative;
-    z-index: 1;
-    padding: 0.15rem 0.35rem;
-    background: rgba(255, 255, 255, 0.92);
-  }
-
-  .image-placeholder small {
-    font: 8px/1.3 var(--mono);
+  .panel-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .portrait-crop {
@@ -615,6 +613,11 @@ const icons: Record<string, string> = {
 
   .detail-crop {
     aspect-ratio: 4 / 3;
+  }
+
+  .detail-crop .panel-image {
+    object-fit: cover;
+    object-position: center 37%;
   }
 
   .caption {
@@ -888,12 +891,22 @@ const icons: Record<string, string> = {
 
   .footer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 1rem;
     padding: 0.4rem 0.65rem;
     color: var(--white);
     background: var(--black);
     font: 9px/1.4 var(--mono);
+  }
+
+  .image-rights {
+    flex-basis: 100%;
+    margin: 0.2rem 0 0;
+    padding-top: 0.35rem;
+    border-top: 1px dotted var(--gray-500);
+    color: var(--gray-300);
+    text-align: center;
   }
 
   .hit-counter {
@@ -953,9 +966,8 @@ const icons: Record<string, string> = {
       box-shadow: none;
     }
 
-    .banner-placeholder {
-      min-height: 12rem;
-      padding-left: 0;
+    .banner-image {
+      height: 12rem;
     }
 
     .banner-copy {
