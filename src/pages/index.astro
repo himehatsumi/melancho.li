@@ -1060,7 +1060,16 @@ const icons: Record<string, string> = {
     .left-sidebar,
     .right-sidebar,
     .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       padding: 0.45rem;
+    }
+
+    .left-sidebar .panel:last-child,
+    .right-sidebar .panel:last-child,
+    .content .panel:last-child {
+      margin-bottom: 0;
     }
 
     .panel {
