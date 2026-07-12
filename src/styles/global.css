@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Geomini Local';
+  src: url('/fonts/geomini-variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Local';
+  src: url('/fonts/roboto-variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --black: #111;
@@ -8,9 +24,9 @@
   --gray-200: #dedede;
   --gray-100: #f1f1f1;
   --white: #fff;
-  --sans: Verdana, Tahoma, Arial, sans-serif;
-  --serif: Georgia, 'Times New Roman', serif;
-  --mono: 'Courier New', Courier, monospace;
+  --sans: 'Roboto Local', Arial, sans-serif;
+  --serif: 'Geomini Local', Georgia, serif;
+  --mono: 'Roboto Local', 'Courier New', monospace;
 }
 
 * {
