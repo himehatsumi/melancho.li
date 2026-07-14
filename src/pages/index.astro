@@ -103,11 +103,6 @@ const icons: Record<string, string> = {
         </div>
       </div>
 
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="#home">home</a>
-        <a href="#contact">contact</a>
-        <a href="https://github.com/himehatsumi/melancho.li" target="_blank" rel="noreferrer">source</a>
-      </nav>
     </header>
 
     <div class="page-grid">
@@ -133,12 +128,12 @@ const icons: Record<string, string> = {
         </section>
 
         <section class="panel">
-          <h2 class="panel-title">SITE MENU</h2>
-          <ul class="side-links">
-            <li><a href="#home">01. home</a></li>
-            <li><a href="#contact">02. contact</a></li>
-            <li><a href="#site-log">03. site log</a></li>
-          </ul>
+          <h2 class="panel-title">GITHUB</h2>
+          <a class="github-widget" href="https://github.com/himehatsumi/melancho.li" target="_blank" rel="noreferrer">
+            <strong>himehatsumi/melancho.li</strong>
+            <span>source for this website</span>
+            <u>view repository →</u>
+          </a>
         </section>
 
         <section class="panel small-panel">
@@ -682,30 +677,6 @@ const icons: Record<string, string> = {
     font-size: 10px;
   }
 
-  .main-nav {
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid var(--black);
-    background: var(--gray-100);
-  }
-
-  .main-nav a {
-    min-width: 7rem;
-    padding: 0.45rem 1rem;
-    border-right: 1px solid var(--black);
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .main-nav a:first-child {
-    border-left: 1px solid var(--black);
-  }
-
-  .main-nav a:hover {
-    color: var(--white);
-    background: var(--black);
-  }
-
   .page-grid {
     display: grid;
     grid-template-areas: 'left content right';
@@ -1032,6 +1003,37 @@ const icons: Record<string, string> = {
     font: 9px/1.3 var(--mono);
   }
 
+  .github-widget {
+    display: flex;
+    min-height: 4.6rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.65rem;
+    border: 1px solid var(--black);
+    border-top: 0;
+    text-decoration: none;
+  }
+
+  .github-widget:hover {
+    color: var(--white);
+    background: var(--black);
+  }
+
+  .github-widget strong {
+    font: bold 10px/1.3 var(--mono);
+    overflow-wrap: anywhere;
+  }
+
+  .github-widget span,
+  .github-widget u {
+    font: 9px/1.3 var(--mono);
+  }
+
+  .github-widget u {
+    align-self: flex-end;
+  }
+
   .button-shelf {
     display: flex;
     min-height: 2.5rem;
@@ -1206,11 +1208,6 @@ const icons: Record<string, string> = {
       font-size: 2.55rem;
     }
 
-    .main-nav a {
-      padding: 0.35rem 0.75rem;
-      font-size: 14px;
-    }
-
     .left-sidebar,
     .right-sidebar,
     .content {
@@ -1345,6 +1342,20 @@ const icons: Record<string, string> = {
       font-size: 11px;
     }
 
+    .github-widget {
+      gap: 0.15rem;
+      padding: 0.4rem;
+    }
+
+    .github-widget strong {
+      font-size: 12px;
+    }
+
+    .github-widget span,
+    .github-widget u {
+      font-size: 11px;
+    }
+
     .button-shelf {
       min-height: 4.3rem;
       padding: 0.18rem;
@@ -1452,11 +1463,6 @@ const icons: Record<string, string> = {
 
     h1 {
       font-size: 2.35rem;
-    }
-
-    .main-nav a {
-      min-width: 0;
-      flex: 1;
     }
 
     .left-sidebar,
